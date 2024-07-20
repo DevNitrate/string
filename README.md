@@ -57,7 +57,7 @@ Example:
 string str = stringInit("abc");
 char c = stringAt(str, 0);
 ```
->the variable ***c*** now contains the character ``'a'```
+>the variable ***c*** now contains the character ``'a'``
 
 ## void stringClear(string self);
 
