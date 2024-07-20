@@ -100,11 +100,44 @@ int stringIsEmpty(string self) {
     return 0;
 }
 
-void stringFree(string self) {
-    if (self != NULL) {
-        free(self->data);
-        free(self);
+int stringIsNum(string self) {
+    for (int i = 0; i < stringSize(self); i++) {
+        char c = stringAt(self, i);
+
+        if (!isdigit(c)) {
+            return 0;
+        }
     }
+
+    return 1;
+}
+
+string stringCopy(string _src) {
+    string str = stringInit(stringGet(_src));
+    return str;
+}
+
+string stringFromInt(int _val) {
+    int isNegative = 0;
+
+    if (_val < 0) {
+        isNegative = 1;
+        _val *= -1;
+    }
+
+    char buf[10];
+    sprintf(buf, "%d", _val);
+
+    string str = isNegative ? stringInit("-") : stringInit(buf);
+    if (isNegative) {
+        stringAppend(str, buf);
+    }
+    return str;
+}
+
+void stringFree(string self) {
+    free(self->data);
+    free(self);
 }
 
 stringVec stringVecInit() {
@@ -124,7 +157,7 @@ void stringVecPush(stringVec self, string _el) {
     if (self->data == NULL) {
         throwErr("Error reallocating memory for self->data inside stringVecPush()");
     }
-    self->data[self->size-1] = _el;
+    self->data[self->size-1] = stringInit(stringGet(_el));
 }
 
 void stringVecPop(stringVec self) {

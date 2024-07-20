@@ -2,6 +2,7 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 #include <stdlib.h>
 
 typedef struct {
@@ -18,6 +19,8 @@ typedef struct {
 
 typedef StringVecStruct* stringVec;
 
+void throwErr(const char* msg);
+
 string stringInit(const char* _str);
 void stringPush(string self, char _c);
 void stringAppend(string self, const char* _str);
@@ -27,6 +30,9 @@ void stringClear(string self);
 int stringCmp(string self, void* _other, int isLit);
 size_t stringSize(string self);
 int stringIsEmpty(string self);
+int stringIsNum(string self);
+string stringFromInt(int _val);
+string stringCopy(string _src);
 void stringFree(string self);
 
 stringVec stringVecInit();
